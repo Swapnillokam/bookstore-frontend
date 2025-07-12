@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {/*Outlet renders all the children of the app */}
+      {/*Outlet renders all the children of the app.jsx */}
       <main className="min-h-screen w-1/2 mx-auto px-4 py-6 font-primary">
         <Outlet />
       </main>
