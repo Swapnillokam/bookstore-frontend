@@ -15,7 +15,6 @@ const navigation = [
 const Navbar = () => {
   const currentUser = true
   const [isDropdownOpen, setisDropdownOpen] = useState(false)
-  console.log(isDropdownOpen)
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
@@ -45,7 +44,7 @@ const Navbar = () => {
                 <div className="absolute top-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
                   <ul className="py-2">
                     {navigation.map((item) => (
-                      <li key={item.name} onClick={()=>{setisDropdownOpen(!isDropdownOpen)}}>
+                      <li key={item.name} onClick={() => { setisDropdownOpen(!isDropdownOpen) }}>
                         <Link to={item.href} className="block px-4 py-2 text-sm hover:bg-gray-100" >{item.name} </Link>
                       </li>
                     ))}
