@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import BookCard from '../books/BookCard';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,43 +9,21 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import BookCard from '../books/BookCard';
 
-const categories = ["Choose a genre", "Business", "Fiction", "Horror", "Adventure"]
+const Recommended = () => {
 
-const TopSellers = () => {
     const [books, setBooks] = useState([])
-    const [selectedCategory, setSelectedCategory] = useState("Choose a genre")
-
-    const filteredBooks = selectedCategory === "Choose a genre" ? books : books.filter(book => book.category === selectedCategory.toLowerCase())
-
-    console.log("filteredBooks", filteredBooks);
-
-
     useEffect(() => {
         fetch("/books.json")
             .then(res => res.json())
             .then((data) => setBooks(data))
     }, [])
 
-
+    // console.log("books.length",books.length)
     return (
-        <div className='py-10'>
-            <h2 className='text-3xl font-semibold mb-6'>Top Sellers</h2>
-
-            {/* category filtering */}
-            <div className='mb-8 flex items-center'>
-                <select className='border border-gray-300 bg-[#EAEAEA] rounded-md px-4 py-2 focus:outline-none' name="category" id="category"
-                    onChange={e => { setSelectedCategory(e.target.value) }}>
-                    {
-                        categories.map((category, index) => (
-                            <option value={category} key={index}>
-                                {category}
-                            </option>
-                        ))
-                    }
-                </select>
-            </div>
-
+        <div className='py-16'>
+            <h2 className='text-3xl font-semibold mb-6'>Recommended for you</h2>
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
@@ -73,7 +50,7 @@ const TopSellers = () => {
                 className="mySwiper"
             >
                 {
-                    filteredBooks.length > 0 && filteredBooks.map((book, index) => (
+                    books.length > 0 && books.slice(8, 18).map((book, index) => (
                         <SwiperSlide key={index}>
                             <BookCard book={book} />
                         </SwiperSlide>))
@@ -83,4 +60,4 @@ const TopSellers = () => {
     )
 }
 
-export default TopSellers
+export default Recommended
