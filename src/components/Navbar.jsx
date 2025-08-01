@@ -4,6 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi";
 import avatarImg from '../assets/avatar.png'
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -15,6 +16,8 @@ const navigation = [
 const Navbar = () => {
   const currentUser = false
   const [isDropdownOpen, setisDropdownOpen] = useState(false)
+  const cartItems = useSelector(state => state.cart.cartItems)
+  console.log("cartItems", cartItems)
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
@@ -60,7 +63,10 @@ const Navbar = () => {
           </button>
 
           <Link to="/cart" className="bg-primary p-1 sm:px-6 px-2 flex items-center rounded-sm">
-            <HiOutlineShoppingCart /><span className="text-sm font-semibold sm:ml-1">0</span>
+            <HiOutlineShoppingCart className="" />
+            {
+              cartItems.length > 0 ? <span className="text-sm font-semibold sm:ml-1">{cartItems.length}</span> : <span className="text-sm font-semibold sm:ml-1">0</span>
+            }
           </Link>
         </div>
 

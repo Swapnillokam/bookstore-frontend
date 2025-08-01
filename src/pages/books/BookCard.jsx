@@ -2,12 +2,21 @@ import React from 'react'
 import { FiShoppingCart } from 'react-icons/fi'
 import { getImgUrl } from '../../utils/getImgUrl'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 const BookCard = ({ book }) => {
-    return (
-        <div className=" rounded-lg transition-shadow duration-300">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:h-72  sm:justify-center gap-4">
+    const dispatch = useDispatch();
 
+    const addToCart = (product) => {
+        dispatch({
+            type: 'cart/addToCart', // your reducer should handle this
+            payload: product,
+        });
+    };
+
+    return (
+        <div className="rounded-lg transition-shadow duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:h-72 sm:justify-center gap-4">
                 <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
                     <Link to={`/books/${book?._id}`}>
                         <img
@@ -24,19 +33,27 @@ const BookCard = ({ book }) => {
                             {book?.title}
                         </h3>
                     </Link>
-                    <p className="text-gray-600 mb-5">{book?.description.length > 80 ? `${book?.description.slice(0, 80)}...` : book?.description}</p>
-                    <p className="font-medium mb-5">
-                        ${book?.newPrice} <span className="line-through font-normal ml-2">${book?.oldPrice}</span>
+                    <p className="text-gray-600 mb-5">
+                        {book?.description.length > 80
+                            ? `${book?.description.slice(0, 80)}...`
+                            : book?.description}
                     </p>
-                    <button className="btn-primary px-6 space-x-1 flex items-center gap-1 ">
-                        <FiShoppingCart className="" />
+                    <p className="font-medium mb-5">
+                        ${book?.newPrice}
+                        <span className="line-through font-normal ml-2">${book?.oldPrice}</span>
+                    </p>
+                    <button
+                        onClick={() => addToCart(book)}
+                        className="btn-primary px-6 space-x-1 flex items-center gap-1"
+                    >
+                        <FiShoppingCart />
                         <span>Add to Cart</span>
                     </button>
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
+
 
 export default BookCard
