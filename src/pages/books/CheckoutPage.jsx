@@ -29,7 +29,7 @@ const CheckoutPage = () => {
       }
       console.log(newOrder);
    };
-   
+
    const currentUser = true
    const [isChecked, setIsChecked] = useState(false)
    return (
@@ -54,35 +54,48 @@ const CheckoutPage = () => {
                            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                               <div className="md:col-span-5">
                                  <label htmlFor="full_name">Full Name</label>
-                                 <input type="text" name="name" id="name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                 <input
+
+                                    {...register("name", { required: true })}
+                                    type="text" name="name" id="name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
                               </div>
 
                               <div className="md:col-span-5">
                                  <label html="email">Email Address</label>
-                                 <input type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                 <input
+
+                                    type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                     disabled
                                     defaultValue={currentUser?.email}
                                     placeholder="email@domain.com" />
                               </div>
                               <div className="md:col-span-5">
                                  <label html="phone">Phone Number</label>
-                                 <input type="number" name="phone" id="phone" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="+123 456 7890" />
+                                 <input
+                                    {...register("phone", { required: true })}
+                                    type="number" name="phone" id="phone" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="+123 456 7890" />
                               </div>
 
                               <div className="md:col-span-3">
                                  <label htmlFor="address">Address / Street</label>
-                                 <input type="text" name="address" id="address" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
+                                 <input
+                                    {...register("address", { required: true })}
+                                    type="text" name="address" id="address" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                               </div>
 
                               <div className="md:col-span-2">
                                  <label htmlFor="city">City</label>
-                                 <input type="text" name="city" id="city" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
+                                 <input
+                                    {...register("city", { required: true })}
+                                    type="text" name="city" id="city" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                               </div>
 
                               <div className="md:col-span-2">
                                  <label htmlFor="country">Country / region</label>
                                  <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                                    <input name="country" id="country" placeholder="Country" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
+                                    <input
+                                       {...register("country", { required: true })}
+                                       name="country" id="country" placeholder="Country" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
                                     <button tabIndex="-1" className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
                                        <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -98,7 +111,9 @@ const CheckoutPage = () => {
                               <div className="md:col-span-2">
                                  <label htmlFor="state">State / province</label>
                                  <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                                    <input name="state" id="state" placeholder="State" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
+                                    <input
+                                       {...register("state", { required: true })}
+                                       name="state" id="state" placeholder="State" className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" />
                                     <button className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
                                        <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -113,12 +128,16 @@ const CheckoutPage = () => {
 
                               <div className="md:col-span-1">
                                  <label htmlFor="zipcode">Zipcode</label>
-                                 <input type="text" name="zipcode" id="zipcode" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
+                                 <input
+                                    {...register("zipcode", { required: true })}
+                                    type="text" name="zipcode" id="zipcode" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                               </div>
 
                               <div className="md:col-span-5 mt-3">
                                  <div className="inline-flex items-center">
                                     <input
+
+                                       onChange={(e) => setIsChecked(e.target.checked)}
                                        type="checkbox" name="billing_same" id="billing_same" className="form-checkbox" />
                                     <label htmlFor="billing_same" className="ml-2 ">I am aggree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></label>
                                  </div>
