@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 const BookCard = ({ book }) => {
     const dispatch = useDispatch();
 
-    const addToCart = (product) => {
+    const hanldeAddToCart = (product) => {
         dispatch({
             type: 'cart/addToCart', // your reducer should handle this
             payload: product,
@@ -43,7 +43,10 @@ const BookCard = ({ book }) => {
                         <span className="line-through font-normal ml-2">${book?.oldPrice}</span>
                     </p>
                     <button
-                        onClick={() => addToCart(book)}
+                        onClick={() => {
+                            hanldeAddToCart(book);
+                            console.log(book)
+                        }}
                         className="btn-primary px-6 space-x-1 flex items-center gap-1"
                     >
                         <FiShoppingCart />

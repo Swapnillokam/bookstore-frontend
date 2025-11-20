@@ -18,7 +18,6 @@ const Login = () => {
 
     const handleGoogleSignIn = () => { }
 
-
     return (
         <div className='h-[calc(100vh-120px)] flex justify-center items-center'>
             <div className='w-full max-w-sm rounded mx-auto bg-white shadow-md px-8 pt-6 pb-8 mb-4'>

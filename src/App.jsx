@@ -6,6 +6,8 @@ import Footer from "./components/Footer"
 
 function App() {
 
+
+  // frontend lecture ends at - 3:54
   return (
     <>
       <Navbar />
@@ -19,3 +21,4 @@ function App() {
 }
 
 export default App
+ 
