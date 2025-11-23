@@ -5,6 +5,7 @@ import { HiOutlineUser } from "react-icons/hi";
 import avatarImg from '../assets/avatar.png'
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -14,10 +15,10 @@ const navigation = [
 ]
 
 const Navbar = () => {
-  const currentUser = false
+  const { currentUser, logOutUser } = useAuth()
   const [isDropdownOpen, setisDropdownOpen] = useState(false)
   const cartItems = useSelector(state => state.cart.cartItems)
-  console.log("cartItems", cartItems)
+  const handleLogout = () => { logOutUser() }
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
@@ -51,6 +52,9 @@ const Navbar = () => {
                         <Link to={item.href} className="block px-4 py-2 text-sm hover:bg-gray-100" >{item.name} </Link>
                       </li>
                     ))}
+                    <li>
+                      <button className="block w-full px-4 py-2 text-sm hover:bg-gray-100" onClick={handleLogout}>Logout</button>
+                    </li>
                   </ul>
                 </div>
               )}
@@ -76,4 +80,3 @@ const Navbar = () => {
 }
 
 export default Navbar
- 
