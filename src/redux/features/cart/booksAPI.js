@@ -15,19 +15,19 @@ const baseQuery = fetchBaseQuery({
 
 const booksApi = createApi({
     reducerPath: 'bookAPI',
-    baseQuery: baseQuery,
+    baseQuery,
     tagTypes: ['Books'],
     // for get request - use query 
     // for post,put,delete request - use mutation
-    endpoints: (build) => ({
+    endpoints: (builder) => ({
         // for get request - use query 
-        fetchAllBooks: build.query({
+        fetchAllBooks: builder.query({
             query: () => "/",
             providesTags: ["Books"]
         })
     })
 })
+ 
 
-console.log("booksApi", booksApi)
 export const { useFetchAllBooksQuery } = booksApi;
 export default booksApi;
