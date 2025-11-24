@@ -16,9 +16,7 @@ const Recommended = () => {
     
     const { data, isError, isLoading } = useFetchAllBooksQuery();
     const books = data?.books || [];
-
-    console.log("data",data)
-    console.log("books.length",books.length)
+    
     return (
         <div className='py-16'>
             <h2 className='text-3xl font-semibold mb-6'>Recommended for you</h2>
