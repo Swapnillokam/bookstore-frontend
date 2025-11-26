@@ -90,6 +90,7 @@ const CheckoutPage = () => {
                                     {...register("email")}
                                     type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                     defaultValue={currentUser?.email}
+                                    readOnly
                                     placeholder="email@domain.com" />
                               </div>
                               <div className="md:col-span-5">
