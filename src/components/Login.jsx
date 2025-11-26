@@ -17,7 +17,7 @@ const Login = () => {
     } = useForm()
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
         try {
             await logInUser(data.email, data.password)
             alert("Logged In successfully")

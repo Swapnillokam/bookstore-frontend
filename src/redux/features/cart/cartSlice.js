@@ -13,10 +13,10 @@ export const cartSlice = createSlice({
         addToCart: (state, action) => {
             const existingItem = state.cartItems.find(item => item._id === action.payload._id)
 
-            console.log("state - ", state);
-            console.log("state.cartItems - ", state.cartItems);
+            // console.log("state - ", state);
+            // console.log("state.cartItems - ", state.cartItems);
             // console.log("state.cartItems.item._id - ", state.cartItems.item._id);
-            console.log("action.payload._id - ", action.payload._id);
+            // console.log("action.payload._id - ", action.payload._id);
 
             if (!existingItem) {
                 state.cartItems.push(action.payload)

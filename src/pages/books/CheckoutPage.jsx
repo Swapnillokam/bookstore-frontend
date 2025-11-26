@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useCreateOrderMutation } from '../../redux/features/orders/ordersAPI'
+import Swal from 'sweetalert2'
 
 const CheckoutPage = () => {
    const cartItems = useSelector(state => state.cart.cartItems)
+   const navigate = useNavigate()
    const { currentUser } = useAuth()
    const totalPrice = cartItems.reduce((acc, item) => (acc + item.newPrice), 0).toFixed(2)
    const {
       register,
       handleSubmit,
       watch,
+      reset,
       formState: { errors },
    } = useForm()
 
-   const onSubmit = (data) => {
+   const [createOrder, { isError, isLoading }] = useCreateOrderMutation()
+
+   const onSubmit = async (data) => {
       const newOrder = {
          name: data.name,
-         email: data.currentUser?.email,
+         email: data.email,
          address: {
             city: data.city,
             state: data.state,
@@ -29,17 +35,33 @@ const CheckoutPage = () => {
          productIds: cartItems.map(item => item?._id),
          totalPrice: totalPrice,
       }
-      console.log(newOrder);
+      try {
+         await createOrder(newOrder).unwrap()
+         Swal.fire({
+            title: "Order Confirmed",
+            text: "Your order placed successfully",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, It's Ok!",
+         })
+         reset();
+         navigate('/orders')
+      } catch (error) {
+         console.error("Error placing an order", error);
+         alert("Failed to place an order")
+      }
    };
-
    const [isChecked, setIsChecked] = useState(false)
+   if (isLoading) return <div>Loading...</div>
    return (
       <section>
          <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
             <div className="container max-w-screen-lg mx-auto">
                <div>
                   <div>
-                     <h2 className="font-semibold text-xl text-gray-600 mb-2">Cash On Delievary</h2>
+                     <h2 className="font-semibold text-xl text-gray-600 mb-2">Cash On Delivery </h2>
                      <p className="text-gray-500 mb-2">Total Price : ${totalPrice}</p>
                      <p className="text-gray-500 mb-6">Items : {cartItems.length}</p>
                   </div>
@@ -65,8 +87,8 @@ const CheckoutPage = () => {
                                  <label html="email">Email Address</label>
                                  <input
 
+                                    {...register("email")}
                                     type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                    disabled
                                     defaultValue={currentUser?.email}
                                     placeholder="email@domain.com" />
                               </div>
@@ -140,7 +162,7 @@ const CheckoutPage = () => {
 
                                        onChange={(e) => setIsChecked(e.target.checked)}
                                        type="checkbox" name="billing_same" id="billing_same" className="form-checkbox" />
-                                    <label htmlFor="billing_same" className="ml-2 ">I am aggree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></label>
+                                    <label htmlFor="billing_same" className="ml-2 ">I agree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></label>
                                  </div>
                               </div>
 
