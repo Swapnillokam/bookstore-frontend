@@ -54,7 +54,7 @@ const booksApi = createApi({
         }),
         //deleteing the book by id
         deleteBook: builder.mutation({
-            query: ({ id, ...rest }) => ({
+            query: (id) => ({
                 url: `${id}`,
                 method: "DELETE",
             }),
