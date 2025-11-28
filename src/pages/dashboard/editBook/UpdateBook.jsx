@@ -65,8 +65,6 @@ const UpdateBook = () => {
       })
       await refetch()
       navigate("/dashboard/manage-books")
-      console.log("bookdata - ", bookdata);
-      console.log("updateBookData - ", updateBookData);
     } catch (error) {
       console.error("Failed to update Book", error);
       alert("Failed to update Book")

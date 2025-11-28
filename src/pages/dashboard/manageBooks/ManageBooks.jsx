@@ -7,8 +7,6 @@ const ManageBooks = () => {
 
     const { data, refetch } = useFetchAllBooksQuery()
     const books = data?.books
-    console.log("books - ", books);
-
 
     const [deleteBook] = useDeleteBookMutation()
 

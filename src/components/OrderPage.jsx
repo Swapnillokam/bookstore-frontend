@@ -8,7 +8,6 @@ const OrderPage = () => {
 
     if (isLoading) return <div>Loading...,</div>
     if (isError) return <div>Error gettign data </div>
-    console.log("data = ", data);
     const orders = data?.orders
     return (
         <div className='container mx-auto p-6'>

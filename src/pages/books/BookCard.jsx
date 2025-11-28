@@ -45,7 +45,6 @@ const BookCard = ({ book }) => {
                     <button
                         onClick={() => {
                             handleAddToCart(book);
-                            // console.log(book)
                         }}
                         className="btn-primary px-6 space-x-1 flex items-center gap-1"
                     >

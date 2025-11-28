@@ -14,17 +14,14 @@ const AdminLogin = () => {
         formState: { errors },
     } = useForm()
     const onSubmit = async (data) => {
-        console.log(data)
         try {
             const response = await axios.post(`${getBaseUrl()}/api/auth/admin`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
-            console.log("response - ", response);
 
             const auth = response.data
-            console.log("auth - ", auth);
             if (auth.token) {
                 localStorage.setItem('token', auth.token)
                 setTimeout(() => {
