@@ -34,25 +34,26 @@ const UpdateBook = () => {
   if (isError) return <div>"Error Fetching Data</div>
 
   const onSubmit = async (data) => {
-    console.log("bookdata - ", bookdata);
-
     const updateBookData = {
       title: data.title,
       description: data.description,
       category: data.category,
       trending: data.trending,
-      oldPrice: Number(data.oldPrice),
-      newPrice: Number(data.newPrice),
+      oldPrice: parseFloat(data.oldPrice),
+      newPrice: parseFloat(data.newPrice),
       coverImage: data.coverImage,
     }
     try {
-      await axios.put(`${getBaseUrl()}/api/books/edit/${id}`, updateBookData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        })
+      // you can use rtk query as well to update the books - useFetchBookByIdQuery() 
+      // await axios.put(`${getBaseUrl()}/api/books/edit/${id}`, updateBookData,
+      //   {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+      //     }
+      //   })
+      await UpdateBook({ id, ...updateBookData }).unwrap()
+
       Swal.fire({
         title: "Book Updated",
         text: "Your book is Updated successfully",
@@ -64,7 +65,8 @@ const UpdateBook = () => {
       })
       await refetch()
       navigate("/dashboard/manage-books")
-      
+      console.log("bookdata - ", bookdata);
+      console.log("updateBookData - ", updateBookData);
     } catch (error) {
       console.error("Failed to update Book", error);
       alert("Failed to update Book")

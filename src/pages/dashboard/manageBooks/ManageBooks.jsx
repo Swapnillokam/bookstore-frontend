@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDeleteBookMutation, useFetchAllBooksQuery } from '../../../redux/features/books/booksAPI';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -15,8 +15,6 @@ const ManageBooks = () => {
     // Handle deleting a book
     const handleDeleteBook = async (id) => {
         try {
-            console.log("id - ", id);
-
             await deleteBook(id).unwrap()
             alert("Book delete succesfully")
             refetch()
@@ -26,10 +24,6 @@ const ManageBooks = () => {
         }
     };
 
-    // Handle navigating to Edit Book page
-    const handleEditClick = (id) => {
-        navigate(`dashboard/edit-book/${id}`);
-    };
     return (
         <section className="py-1 bg-blueGray-50">
             <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
